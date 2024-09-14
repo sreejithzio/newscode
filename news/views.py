@@ -14,7 +14,6 @@ class RetrieveNews(APIView):
     def get(self,request):
         url = 'https://newsapi.org/v2/everything?q={query}&apiKey=3b6daad44fb1444490134f5524c66cc5'
         response = requests.get(url).json()
-        print(type(response))
         for item in response['articles']:
             Article.objects.create(
                 title=item['title'],
@@ -23,7 +22,6 @@ class RetrieveNews(APIView):
                 published_at=item['publishedAt'],
                 source_name=item['source']['name']
             )
-        print(response)
         return Response({'data':response})
     
 # fetch data by title
